@@ -39,6 +39,6 @@ app.post('/tokenize', (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Servidor rodando na porta ${port}`);
 });

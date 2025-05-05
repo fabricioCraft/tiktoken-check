@@ -17,9 +17,9 @@ app.post('/tokenize', (req, res) => {
   // Removida a validação explícita de existência para permitir inputs/outputs vazios se necessário.
   // No entanto, para tokenização, pelo menos uma string vazia é geralmente esperada.
   // Se você *precisa* que eles existam, mantenha a validação, mas ela não limita o TAMANHO.
-  // if (!input || !output) {
-  //   return res.status(400).json({ error: 'Parâmetros "input" e "output" são obrigatórios.' });
-  // }
+   if (!input || !output) {
+     return res.status(400).json({ error: 'Parâmetros "input" e "output" são obrigatórios.' });
+  }
 
   // Garanta que input e output sejam strings, mesmo que vazias, para evitar erros com enc.encode
   const inputString = typeof input === 'string' ? input : '';

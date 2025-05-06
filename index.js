@@ -17,9 +17,9 @@ app.post('/tokenize', (req, res) => {
   // Removida a validação explícita de existência para permitir inputs/outputs vazios se necessário.
   // No entanto, para tokenização, pelo menos uma string vazia é geralmente esperada.
   // Se você *precisa* que eles existam, mantenha a validação, mas ela não limita o TAMANHO.
-   if (!input || !output) {
-     return res.status(400).json({ error: 'Parâmetros "input" e "output" são obrigatórios.' });
-  }
+  //if (!input || !output) {
+  //   return res.status(400).json({ error: 'Parâmetros "input" e "output" são obrigatórios.' });
+  //}
 
   // Garanta que input e output sejam strings, mesmo que vazias, para evitar erros com enc.encode
   const inputString = typeof input === 'string' ? input : '';
@@ -37,15 +37,15 @@ app.post('/tokenize', (req, res) => {
       // Preço GPT-4 Turbo (atualizado em Nov 2023) - Verifique as taxas atuais da OpenAI
       // Input: $0.01 / 1K tokens
       // Output: $0.03 / 1K tokens
-      const inputCost = (inputTokens.length * 0.01) / 1000;
-      const outputCost = (outputTokens.length * 0.03) / 1000;
+      const inputCost = (inputTokens.length * 0.002) / 1000;
+      const outputCost = (outputTokens.length * 0.008) / 1000;
       const totalCost = inputCost + outputCost;
 
       // Libera a memória alocada pelo tokenizador
       enc.free();
 
       res.json({
-        model: "gpt-4", // Especifique a versão exata se souber (ex: gpt-4-turbo-2024-04-09)
+        model: "gpt-4.1", // Especifique a versão exata se souber (ex: gpt-4-turbo-2024-04-09)
         input_characters: inputString.length,
         output_characters: outputString.length,
         input_tokens: inputTokens.length,
